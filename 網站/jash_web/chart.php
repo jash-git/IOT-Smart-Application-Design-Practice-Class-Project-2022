@@ -53,6 +53,7 @@
 		var option;
 		
 		var SwitchData = [];
+		var X_Data = ["V1","V2","V3","V4","V5","V6"];
 		//alert(SwitchData);
 		//var data01 = [5, 20, 36, 10, 10, 20];
 		//var data02 = [20, 10, 10, 36, 20, 5];
@@ -100,18 +101,18 @@
 		// 指定图表的配置项和数据
 		option = {
 			title: {
-				text: 'ECharts 入门示例'
+				text: 'Arduino Value'
 			},
 			tooltip: {},
 			legend: {
-				data:['销量']
+				data:['Value']
 			},
 			xAxis: {
-				data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+				data: ["V1","V2","V3","V4","V5","V6"]
 			},
 			yAxis: {},
 			series: [{
-				name: '销量',
+				name: 'Value',
 				type: 'bar',
 				data: SwitchData
 			}]
