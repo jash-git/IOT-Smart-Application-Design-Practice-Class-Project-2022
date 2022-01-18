@@ -25,49 +25,11 @@
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div id="main" style="width: 960px;height:720px;"></div>
 
-<script type="text/javascript">	
+<script type="text/javascript">
 	// 基于准备好的dom，初始化echarts实例
 	var myChart = echarts.init(document.getElementById('main'));
 	var gCount=0;
 	var t;
-	var ws = new WebSocket("ws://localhost:8081");
-    ws.onmessage = function (e) {
-		/*
-        var msg = JSON.parse(e.data);
-        var sender, user_name, name_list, change_type;
-
-        switch (msg.type) {
-            case 'system':
-                sender = '系统消息: ';
-                break;
-            case 'user':
-                sender = msg.from + ': ';
-                break;
-            case 'handshake':
-                var user_info = {'type': 'login', 'content': uname};
-                sendMsg(user_info);
-                return;
-            case 'login':
-            case 'logout':
-                user_name = msg.content;
-                name_list = msg.user_list;
-                change_type = msg.type;
-                dealUser(user_name, change_type, name_list);
-                return;
-        }
-
-        var data = sender + msg.content;
-		listMsg(data);
-		*/
-		if (e.data.indexOf('d_array') !== -1)
-		{		
-			var msg = JSON.parse(e.data);
-			showtime();
-			showecharts(msg.d_array);
-			console.log(msg.d_array);
-		}
-
-    };
 	
 	function showtime()
 	{
@@ -90,9 +52,51 @@
 	{
 		var option;
 		
-		var SwitchData = value;
+		var SwitchData = [];
 		var X_Data = ["V1","V2","V3","V4","V5","V6"];
-
+		//alert(SwitchData);
+		//var data01 = [5, 20, 36, 10, 10, 20];
+		//var data02 = [20, 10, 10, 36, 20, 5];
+		if((value%2)==1)
+		{
+			//*
+			$.ajax(
+			{
+					 url: 'getChart.php?v=1',
+					 cache: false,
+					 type:'Get',
+					 async:false, //設定為同步(=必須等待執行結果)
+					 error:function(){
+						 //alert('Ajax request 發生錯誤');
+						 },
+					 success: function(res){
+							//alert(res);
+							SwitchData.length = 0;
+							SwitchData=$.parseJSON(res);
+						 }
+			});
+			//*/
+		}
+		else
+		{
+			//*
+			$.ajax(
+			{
+					 url: 'getChart.php?v=0',
+					 cache: false,
+					 type:'Get',
+					 async:false, //設定為同步(=必須等待執行結果)
+					 error:function(){
+						 //alert('Ajax request 發生錯誤');
+						 },
+					 success: function(res){
+						    //alert(res);
+							SwitchData.length = 0;
+							SwitchData=$.parseJSON(res);
+						}
+			});	
+			//*/
+		}
 		
 		// 指定图表的配置项和数据
 		option = {
@@ -121,8 +125,21 @@
 	
 	function showAuto()
 	{
-		showtime();
-		showecharts([]);	
+		if((gCount%10)==0)
+		{
+		　　showtime();
+			showecharts(gCount/10);			
+		}
+		if(gCount<600)
+		{
+			gCount++;
+		}
+		else
+		{
+			gCount=0;
+		}
+
+		
 	}
 	
 	function StopFunction()
@@ -132,7 +149,7 @@
 	}
 	
 	$(function(){
-		showAuto();
+	　　t = setInterval("showAuto()", 100); 
 	})
 	
 
