@@ -16,3 +16,7 @@ jash_EasyUI_WebSys [使用李炎恢最後範例修改成繁中]
 20220101-修改chart.php，顯示數值獨立到JS的變數中
 20220101-修改chart.php，顯示數值透過AJAX呼叫PHP產生
 20220101-新增getChart.php
+
+20220118-修改chart.php，使用Websocket接收後端Server推送數值
+20220118-修改val2DB.php，使用Websocket傳送後端Server觸發訊號
+20220101-新增server.php，建立中介用Websocket Server
